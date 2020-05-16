@@ -18,10 +18,12 @@ async def index(request):
     img_url = request.rel_url.query.get("img_url")
     if img_url:
         response = {"has_face": detect_faces(img_url)}
+        status = 200
     else:
         response = {"error": "img url not provided"}
+        status = 400
 
-    return web.json_response(response)
+    return web.json_response(response, status=status)
 
 
 app = web.Application()
