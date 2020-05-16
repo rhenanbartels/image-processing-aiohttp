@@ -26,7 +26,7 @@ async def faces_view(request):
     if img_url:
         try:
             img = request_image(img_url)
-            response = {"has_face": detect_faces(img)}
+            response = {"faces": detect_faces(img)}
             status = 200
         except Exception as e:
             response = {
