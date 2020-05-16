@@ -14,7 +14,7 @@ def detect_faces(img_url):
 
 
 @cache()
-async def index(request):
+async def has_faces_view(request):
     img_url = request.rel_url.query.get("img_url")
     if img_url:
         response = {"has_face": detect_faces(img_url)}
@@ -28,4 +28,4 @@ async def index(request):
 
 app = web.Application()
 setup_cache(app)
-app.router.add_get("/", index)
+app.router.add_get("/has-faces", has_faces_view)
