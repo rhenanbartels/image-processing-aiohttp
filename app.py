@@ -3,6 +3,7 @@ from io import BytesIO
 import face_recognition
 import requests
 from aiohttp import web
+from aiohttp_cache import setup_cache, cache
 
 
 def detect_faces(img_url):
@@ -11,6 +12,7 @@ def detect_faces(img_url):
     return len(face_recognition.face_locations(img)) > 0
 
 
+@cache()
 async def index(request):
     img_url = request.rel_url.query.get("img_url")
     if img_url:
@@ -22,4 +24,5 @@ async def index(request):
 
 
 app = web.Application()
+setup_cache(app)
 app.router.add_get('/', index)
